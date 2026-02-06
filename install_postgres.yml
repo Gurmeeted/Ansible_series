@@ -1,0 +1,22 @@
+---
+- name: Install postgres on db servers
+  hosts: all
+  become: yes
+  tasks:
+
+   - name: Update apt cache
+     apt:
+       update_cache: yes
+       
+   - name: Install postgres packages
+     apt:
+       name:
+       - postgresql
+       - postgresql-contrib
+       state: present
+    
+   - name: Ensure PostgreSQL service is running
+     service:
+       name: postgresql
+       state: started
+       enabled: yes
